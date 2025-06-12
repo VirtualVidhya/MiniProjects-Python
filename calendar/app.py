@@ -1,45 +1,47 @@
-# File: calendar.py
-# -----------------
-# This program prints out a calendar, to show the days of the
-# week in each month.
+"""
+File: calendar.py
+-----------------
+This program prints out a calendar, to show the days of the
+week in each month.
+"""
 
 NUM_MONTHS = 12
 NUM_DAYS_IN_WEEK = 7
-MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 
 def is_leap_year(year):
+    """
+    Returns Boolean indicating if given year is a leap year.
+    It is a leap year if the year is:
+    * divisible by 4, but not divisible by 100
+     OR
+    * divisible by 400
+    (Example of a "predicate function")
 
-    # Returns Boolean indicating if given year is a leap year.
-    # It is a leap year if the year is:
-    # * divisible by 4, but not divisible by 100
-    #  OR
-    # * divisible by 400
-    # (Example of a "predicate function")
-
-    # Doctests:
-    # >>> is_leap_year(2001)
-    # False
-    # >>> is_leap_year(2020)
-    # True
-    # >>> is_leap_year(2000)
-    # True
-    # >>> is_leap_year(1900)
-    # False
-
+    Doctests:
+    >>> is_leap_year(2001)
+    False
+    >>> is_leap_year(2020)
+    True
+    >>> is_leap_year(2000)
+    True
+    >>> is_leap_year(1900)
+    False
+    """
     return ((year % 4 == 0) and (year % 100 != 0)) or (year % 400 == 0)
 
 
 def days_in_month(month, year):
-    
-    # Returns the number of days in the given month and year.
-    # Assumes that month 1 is January, month 2 is February, and so on.
+    """
+    Returns the number of days in the given month and year.
+    Assumes that month 1 is January, month 2 is February, and so on.
 
-    # Doctests:
-    # >>> days_in_month(4, 2020)
-    # 30
-    # >>> days_in_month(2, 1900)
-    # 28
-    
+    Doctests:
+    >>> days_in_month(4, 2020)
+    30
+    >>> days_in_month(2, 1900)
+    28
+    """
     # Days in February depends on whether it's a leap year
     if month == 2:
         if is_leap_year(year):
@@ -55,18 +57,18 @@ def days_in_month(month, year):
 
 
 def print_month_header(month):
-    
-    # Prints header for a given month in the calendar
-    
-    print(f"\n# Month {str(month)}: {MONTHS[month - 1]} #")
+    """
+    Prints header for a given month in the calendar
+    """
+    print("Month #" + str(month))
     print("Sun Mon Tue Wed Thu Fri Sat")
 
 
 def format_number(num):
-    
-    # Formats a one or two digit integer to fit in four spaces.
-    # Returns a string of the formatted number string.
-    
+    """
+    Formats a one or two digit integer to fit in four spaces.
+    Returns a string of the formatted number string.
+    """
     result = " " + str(num) + " "
     if num < 10:
         result = result + " "
@@ -74,13 +76,13 @@ def format_number(num):
 
 
 def print_month(first_day, month, year):
-    
-    # Prints a daily calendar for the given month and year.  It is
-    # also given the day of the week that this month starts on
-    # (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    """
+    Prints a daily calendar for the given month and year.  It is
+    also given the day of the week that this month starts on
+    (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
 
-    # Returns the day of the week that the *following* month would start on
-    
+    Returns the day of the week that the *following* month would start on
+    """
     print_month_header(month)
     days = days_in_month(month, year)
 
@@ -102,21 +104,21 @@ def print_month(first_day, month, year):
 
 
 def first_day_of_year(year):
-    
-    # Returns the first day of the week for a given year, where
-    # (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    # The formula in this function comes from http://mathforum.org/
-    # >>> first_day_of_year(2020)
-    # 3
-    
+    """
+    Returns the first day of the week for a given year, where
+    (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    The formula in this function comes from http://mathforum.org/
+    >>> first_day_of_year(2020)
+    3
+    """
     year -= 1
     return (year + (year // 4) - (year // 100) + (year // 400) + 1) % NUM_DAYS_IN_WEEK
 
 
 def main():
-    
-    # Prints calendar for the year entered by the user
-    
+    """
+    Prints calendar for the year entered by the user
+    """
     year = int(input("Enter year for calendar: "))
     first_day = first_day_of_year(year)
 
